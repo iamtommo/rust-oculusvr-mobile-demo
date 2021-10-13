@@ -1,0 +1,12 @@
+info on gear vr home use of compositor layers:
+https://forums.oculusvr.com/developer/discussion/66826/some-question-for-blend-render-compositor-layer-ovroverlay-with-opaque-transparent-model
+
+namely:
+Cubemap background
+Cylinder panel (tile grid)
+Cursor
+Eye buffers (controller geometry)
+Each layer is blended on top of the previous ones using src.a * src.rgb + (1-src.a) * dst.rgb. So we set a=0 in each layer to "poke a hole"
+for the previously-rendered layer(s) to show through. In Unity, you can use the "Underlay Impostor" shader to poke a hole for OVROverlay underlays.
+Sorry this isn't in the documentation yet, we're updating it. For performance reasons, we can't easily change the blending formula, but you can change the compositing order by
+activating your OVROverlay instances in a different order. "Underlay" layers simply composite before the eye buffers and "overlay" layers composite after them.

@@ -1,0 +1,11 @@
+# cargo
+/target
+Cargo.lock
+
+# game resources
+assets/resources
+
+# intellij
+.idea/
+*.iws
+out/
